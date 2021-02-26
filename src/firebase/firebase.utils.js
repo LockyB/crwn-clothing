@@ -12,6 +12,38 @@ const config = {
     measurementId: "G-RFCRNHZE7M"
 };
 
+//this allows us to create a new user document when sign in with google
+//first it checks the userAuth object
+//we do not need any state 
+export const createUserProfileDocument = async (userAuth, additionalData) => {
+  if(!userAuth) return;
+
+  const userRef = firestore.doc(`users/${userAuth.uid}`);
+
+  const snapShot = await userRef.get();
+  //note that returning snapShot is a "getter" function which means we need to reference the property name
+  //to return the actual value of the property
+  // console.log(snapShot.id);
+
+  if(!snapShot.exists) {
+    const {displayName, email } = userAuth;
+    const createdAt = new Date();
+
+    try {
+      await userRef.set({
+        displayName,
+        email,
+        createdAt,
+        ...additionalData
+      })
+    } catch (error) {
+      console.log('error creating user', error.message);
+    }
+  }
+  //we may still want to use userRef after creating the records in database.
+  return userRef;
+};
+
 firebase.initializeApp(config);
 
 export const auth = firebase.auth();
