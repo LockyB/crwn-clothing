@@ -10,8 +10,11 @@ const CollectionPreview = ({title,items}) => (
       {
         items
           .filter((item,idx) => idx <4)  
-          .map(({ id, ...otherItemProps })=>(
-            <CollectionItem key={id} { ...otherItemProps } />
+          // .map(({ id, ...otherItemProps })=>(
+          //we pass the whole item because for redux to work
+          //we use the whole item and then put it into the cart item
+          .map((item) => (
+            <CollectionItem key={item.id} item={item} />
           ))
       }
     </div>

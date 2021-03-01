@@ -4,4 +4,9 @@ export const toggleCartHidden = () => ({
   type: CartActionTypes.TOGGLE_CART_HIDDEN
 });
 
+export const addCartItem = (item) => ({
+  type: CartActionTypes.ADD_ITEM,
+  payload: item
+});
+
 //note that payload is an optional property, fot toggle, we don't need to as we just use !state.hidden
