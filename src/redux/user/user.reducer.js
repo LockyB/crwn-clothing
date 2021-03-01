@@ -1,4 +1,4 @@
-import { UserActionTypes } from './user.types';
+import UserActionTypes from './user.types';
 
 //our reducer needs to know two things from action
 //one is the type of the action
