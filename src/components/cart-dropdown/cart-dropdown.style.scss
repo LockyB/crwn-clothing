@@ -11,12 +11,21 @@
   right: 40px;
   z-index: 5;
 
-  .cart-items {
+  .scroll-container {
     height: 240px;
+    margin: 0px;
+    border-top: 1px solid #AAA;
+    border-bottom: 1px solid #AAA;
+    overflow-y: scroll;
+    position:absolute;
+  }
+
+  .cart-items {
+    height: 100%;
     display: flex;
     flex-direction: column;
-    overflow: scroll;
   }
+
 
   button {
     margin-top: auto;
