@@ -9,6 +9,10 @@ import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 import { auth } from '../../firebase/firebase.utils';
 import { connect } from 'react-redux';
 
+import { createStructuredSelector } from 'reselect';
+import { selectCartHidden} from '../../redux/cart/cart.selectors';
+import { selectCurrentUser } from '../../redux/user/user.selectors';
+
 const Header = ({currentUser, hidden}) => (
   <div className='header'>
     <Link className='logo-container' to="/">
@@ -36,10 +40,22 @@ const Header = ({currentUser, hidden}) => (
 )
 
 //destructure with nested value
-const mapStateToProps = ({user: { currentUser }, cart: { hidden }}) => ({
-  // currentUser: currentUser, same as
-  currentUser,
-  hidden
-})
+// const mapStateToProps = ({user: { currentUser }, cart: { hidden }}) => ({
+//   // currentUser: currentUser, same as
+//   currentUser,
+//   hidden
+// })
+
+// const mapStateToProps = state => ({
+//     currentUser : selectCurrentUser(state),
+//     hidden: selectCartHidden(state)
+//   })
+//or like this with createStucturedSelector
+const mapStateToProps = createStructuredSelector({
+    currentUser : selectCurrentUser,
+    hidden: selectCartHidden
+  });
+//where it will automatically pass top-level state to each of the selector
+//but i prefer the previous version as it is clearer
 
 export default connect(mapStateToProps)(Header);

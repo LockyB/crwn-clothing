@@ -5,6 +5,7 @@ import { toggleCartHidden } from '../../redux/cart/cart.actions';
 
 import { ReactComponent as ShoppingIcon } from '../../assets/shopping-bag.svg';
 import { selectCartItemsCount } from '../../redux/cart/cart.selectors';
+import { createStructuredSelector } from 'reselect';
 
 import './cart-icon.style.scss';
 
@@ -41,15 +42,19 @@ const mapDispatchToProps = dispatch => ({
 // })
 
 //we use this, i.e. we pass the whole state in
-//but it 
-const mapStateToProps = state => {
-    console.log('mapStateToProps will always be called'); //this will still get rerender
-    return (
-      {
-        itemCount: selectCartItemsCount(state)
-      }
-    )
-};
+// const mapStateToProps = state => {
+//     console.log('mapStateToProps will always be called'); //this will still get rerender
+//     return (
+//       {
+//         itemCount: selectCartItemsCount(state)
+//       }
+//     )
+// };
+
+const mapStateToProps = createStructuredSelector({
+  itemCount: selectCartItemsCount
+})
+
 
 export default connect(
   mapStateToProps,
