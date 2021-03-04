@@ -1,28 +1,19 @@
 import React from 'react';
-import SHOP_DATA from './shop.data.js';
-import CollectionPreview from '../../components/collection-preview/collection-preview.component.jsx';
+import { Route } from 'react-router-dom';
 
-class ShopPage extends React.Component {
-  constructor(props){
-    super(props);
+import CollectionOverview from '../../components/collection-overview/collection-overview.component';
+import CategoryPage from '../collection/collection.component';
 
-    this.state = {
-      collections: SHOP_DATA
-    };
-  }
+//Route has props match, location and history
+//we use match to use the path
+//the :categoryId is a special syntax in Route that specify parameters which is the url params
+//CategoryPage can then access this variable via match.params.categoryId to obtain the actual param val.
 
-  render() {
-    const {collections} = this.state;
-    return (<div className ='shop-page'>
-      {
-        collections.map(({id, ...otherCollectionProps})=> (
-          <CollectionPreview key={id} {...otherCollectionProps} />
-        ))
-
-      }
-      </div>
-    );
-  }
-}
+const ShopPage = ({ match }) => (
+  <div className ='shop-page'>
+    <Route exact path={`${match.path}`} component={CollectionOverview} />
+    <Route path = {`${match.path}/:collectionId`} component={CategoryPage}/>
+  </div>
+);
 
 export default ShopPage;
